@@ -1,0 +1,136 @@
+<div class="container-fluid mt-2">
+  <div class="card">
+    <div class="card-header">
+      <h3>Create New Player</h3>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="savePlayer()">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>Player details</h5>
+            <div class="mb-2">
+              <label for="playerName" class="form-label">Player Name</label>
+              <input
+                type="text"
+                id="playerName"
+                name="playerName"
+                class="form-control"
+                [(ngModel)]="playerObj.playerName"
+              />
+            </div>
+            <div class="mb-2">
+              <label for="regDate" class="form-label">Registration Date</label>
+              <input
+                type="date"
+                id="regDate"
+                name="regDate"
+                class="form-control"
+                [(ngModel)]="playerObj.regDate"
+              />
+            </div>
+            <div class="mb-2">
+              <label for="regFee" class="form-label">Registration Fee</label>
+              <input
+                type="number"
+                id="regFee"
+                name="regFee"
+                class="form-control"
+                [(ngModel)]="playerObj.regFee"
+              />
+            </div>
+            <div class="mb-2">
+              <input
+                type="checkbox"
+                id="isActive"
+                name="isActive"
+                class="form-check-input"
+                [(ngModel)]="playerObj.isActive"
+              />&nbsp;
+              <label for="isActive" class="form-check-label fw-semibold">Active?</label>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Devices</label>
+              <select class="form-control" [(ngModel)]="playerObj.deviceId" name="deviceId">
+                <option [value]="0" disabled>-- Choose Device --</option>
+                @for (item of deviceList; track item.deviceId) {
+                  <option [value]="item.deviceId">{{ item.deviceName }}</option>
+                }
+              </select>
+            </div>
+            <div class="mb-2">
+              @if (imageUrl) {
+                <img [src]="imageUrl" class="img-thumbnail" style="width: 150px" />
+              }
+              <div>
+                <label for="image" class="form-label fw-bold">Click here to Upload Image</label>
+                <input
+                  id="image"
+                  type="file"
+                  accept="image"
+                  style="display: none"
+                  (change)="onSelectedFile($event)"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h5>Games Details</h5>
+            <div class="mb-2">
+              <label for="gameName" class="form-label">Game Name</label>
+              <input
+                type="text"
+                id="gameName"
+                name="gameName"
+                class="form-control"
+                [(ngModel)]="gameObj.gameName"
+              />
+            </div>
+            <div class="mb-2">
+              <label for="gameVer" class="form-label">Game Version</label>
+              <input
+                type="text"
+                id="gameVer"
+                name="gameVer"
+                class="form-control"
+                [(ngModel)]="gameObj.gameVer"
+              />
+            </div>
+            <button type="button" class="btn btn-primary" (click)="addGame()">+Add Game</button>
+            @if (gameList && gameList.length > 0) {
+              <table class="table table-bordered table-sm">
+                <thead>
+                  <tr>
+                    <th>Game Name</th>
+                    <th>Game Version</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (item of gameList; track $index) {
+                    <tr>
+                      <td>{{ item.gameName }}</td>
+                      <td>{{ item.gameVer }}</td>
+                      <td>
+                        <button type="button" class="btn btn-danger" (click)="deleteGame(item)">
+                          Remove
+                        </button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            } @else {
+              <div class="mt-2">
+                <span class="text-muted fst-italic">No Games Found</span>
+              </div>
+            }
+          </div>
+          <div class="d-flex justify-content-end gap-2 col-md-12">
+            <a [routerLink]="['/player-list']" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-success">Save Player</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

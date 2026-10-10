@@ -1,0 +1,81 @@
+<div class="d-flex justify-content-between align-items-center mt-3">
+  <h4>Player List</h4>
+  <a routerLink="/add-player" class="btn btn-outline-primary">+Add Player</a>
+</div>
+
+@if (players && players.length > 0) {
+  <table class="table table-bordered table-striped-columns mt-3">
+    <thead>
+      <tr>
+        <th>Profile Picture</th>
+        <th>Player Information</th>
+        <th>Device Information</th>
+        <th>Games Information</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of players; track p.playerId) {
+        <tr>
+          <td>
+            @if (p.imageUrl) {
+              <img
+                [src]="getImageUrl(p.imageUrl)"
+                alt="picture"
+                style="max-width: 120px"
+                class="img-thumbnail"
+              />
+            } @else {
+              <span class="text-muted">No Image</span>
+            }
+          </td>
+          <td>
+            <b class="fw-semibold">Player Name: </b>{{ p.playerName }} <br />
+            <b class="fw-semibold">Registration Date: </b>{{ p.regDate | date: 'shortDate' }} <br />
+            <b class="fw-semibold">Registration Fee: </b>{{ p.regFee }} tk
+          </td>
+          <td>
+            <b class="fw-semibold">Device: </b>{{ p.device?.deviceName }} <br />
+            @if (p.isActive) {
+              <span class="badge bg-success">Active</span>
+            } @else {
+              <span class="badge bg-warning">Inactive</span>
+            }
+          </td>
+          <td>
+            @if (p.games && p.games.length > 0) {
+              <table class="table table-hover mb-0">
+                <thead class="small">
+                  <tr>
+                    <th>Game Name</th>
+                    <th>Game Version</th>
+                  </tr>
+                </thead>
+                <tbody class="small">
+                  @for (g of p.games; track g.gameId) {
+                    <tr>
+                      <td>{{ g.gameName }}</td>
+                      <td>{{ g.gameVer }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            } @else {
+              <span class="text-muted fst-italic">No Games Found</span>
+            }
+          </td>
+          <td>
+            <div class="d-flex justify-content-center gap-2">
+              <a [routerLink]="['/edit-player', p.playerId]" class="btn btn-secondary">Edit</a>
+              <button type="button" class="btn btn-danger" (click)="deletePlayer(p.playerId)">
+                Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+} @else {
+  <p class="text-muted fst-italic">No Players Found</p>
+}
