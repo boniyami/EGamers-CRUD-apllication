@@ -47,3 +47,73 @@ EGamers/
     │   ├── assets/        # Images, icons, and static files
     │   └── environments/  # Environment configuration files
     └── package.json       # Frontend dependencies
+```
+## ⚙️ Setup, Database, & Installation Instructions 
+Follow these steps to set up, configure the database, and run both projects locally on your machine.
+
+**Prerequisites**
+Make sure you have the following installed:
+- .NET SDK
+- Node.js & npm
+- Angular CLI
+- SQL Server
+
+**1. Clone the Repository**
+```Bash
+git clone [https://github.com/boniyami/EGamers-CRUD-apllication.git](https://github.com/boniyami/EGamers-CRUD-apllication.git)
+cd EGamers
+```
+
+**2. Database Configuration (SQL Server)**
+- Ensure your Microsoft SQL Server instance is up and running.
+- The project uses Entity Framework Core, which will automatically create and migrate the database based on your connection string.
+
+**3. Backend API Setup (EGamersCRUDApi)**
+Open your terminal and navigate to the backend folder:
+```Bash
+cd EGamersCRUDApi
+```
+Open appsettings.json and update the DefaultConnection string with your local SQL Server instance details:
+```JSON
+"ConnectionStrings": {
+  "DefaultConnection": "Server=YOUR_SERVER_NAME;Database=EGamersDB;Trusted_Connection=True;TrustServerCertificate=True;"
+}
+```
+Apply Entity Framework migrations to generate the database:
+```Bash
+dotnet ef database update
+```
+Start the backend API:
+```Bash
+dotnet run
+```
+
+**4. Frontend Setup (EGamers_Client)**
+Open a new terminal window and navigate to the client folder:
+```Bash
+cd EGamers_Client
+```
+Install the required Node.js dependencies:
+```Bash
+npm install
+```
+Start the Angular development server:
+```Bash
+ng serve
+```
+Open your browser and go to http://localhost:4200.
+
+## 🌐 API Endpoints Overview
+```
+Method      Endpoint                    Description
+GET         /api/Players                Retrieve all players records
+GET         /api/Players/{id}           Retrieve a specific player record by ID
+GET         /api/Players/Devices        Retrieve all devices records
+POST        /api/Players                Create a new player record
+POST        /api/Players/Upload/{id}    Upload a image
+PUT         /api/Players/{id}           Update an existing player record
+DELETE      /api/Players/{id}           Remove a player record
+```
+
+##👤 AuthorBoni Yamin
+GitHub: @boniyami
