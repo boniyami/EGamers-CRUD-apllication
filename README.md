@@ -51,7 +51,7 @@ EGamers/
 ## ⚙️ Setup, Database, & Installation Instructions 
 Follow these steps to set up, configure the database, and run both projects locally on your machine.
 
-**Prerequisites**
+**Prerequisites** 
 Make sure you have the following installed:
 - .NET SDK
 - Node.js & npm
@@ -115,5 +115,6 @@ PUT         /api/Players/{id}           Update an existing player record
 DELETE      /api/Players/{id}           Remove a player record
 ```
 
-##👤 AuthorBoni Yamin
+## 👤 Author
+Boni Yamin
 GitHub: @boniyami
